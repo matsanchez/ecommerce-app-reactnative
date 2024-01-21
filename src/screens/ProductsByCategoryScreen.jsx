@@ -1,8 +1,12 @@
+import { ActivityIndicator } from 'react-native'
+import { FlatList, View, StyleSheet } from 'react-native'
 import { useEffect, useState } from 'react'
-import { FlatList, StyleSheet } from 'react-native'
-import ProductItem from '../components/ProductItem'
-import Search from '../components/Search'
+import ProductItem from '../components/ProductItem/ProductItem'
+import Search from '../components/Search/Search'
+import NoSearchResult from '../components/NoSearchResult/NoSearchResult'
+import { colors } from '../global/colors'
 import { useSelector } from 'react-redux'
+import { useGetProductsByCategoryQuery } from '../services/shopService'
 
 const ProductsByCategoryScreen = ({ navigation }) => {
 
@@ -10,38 +14,67 @@ const ProductsByCategoryScreen = ({ navigation }) => {
   const [search, setSearch] = useState('')
 
   const category = useSelector(state => state.shopReducer.categorySelected)
-  const productsFilteredByCategory = useSelector(state => state.shopReducer.productsFilteredByCategory)
+
+  const { data: productsFilteredByCategory, isLoading, error } = useGetProductsByCategoryQuery(category)
+
+
 
   useEffect(() => {
-    const productsFiltered = productsFilteredByCategory.filter(product => product.title.toLowerCase().includes(search.toLowerCase()))
-    setProductsByCategory(productsFiltered)
-  },[category, search])
+
+    if (!isLoading) {
+      const productsValues = Object.values(productsFilteredByCategory)
+      const productsFilteredByName = productsValues.filter(product => product.title.toLowerCase().includes(search.toLowerCase()))
+      setProductsByCategory(productsFilteredByName)
+    }
+
+  }, [isLoading, category, search])
+
 
   const renderProductItem = ({ item }) => (
-    <ProductItem product={item} navigation={navigation}/>
+    <ProductItem product={item} navigation={navigation} />
   )
 
   const onSearch = (search) => {
-    setSearch(search)
-  }
-
+    setSearch(search);
+  };
 
   return (
-    <>
-      <Search onSearchHandlerEvent={onSearch} />
-      <FlatList 
-        data={productsByCategory}
-        renderItem={renderProductItem}
-        keyExtractor={item => item.id}
-      />
-    </>
+    <View style={style.container}>
+
+      {
+        isLoading ?
+          <ActivityIndicator size="large" color={colors.darkBlue} />
+          :
+          <>
+            <Search onSearchHandlerEvent={onSearch} />
+            <>
+              {productsByCategory.length === 0 && (
+                <NoSearchResult />
+              )}
+
+              <FlatList
+                style={style.containerProductsByCategory}
+                data={productsByCategory}
+                renderItem={renderProductItem}
+                keyExtractor={item => item.id}
+              />
+            </>
+          </>
+      }
+
+
+    </View >
   )
 }
 
-
 export default ProductsByCategoryScreen
 
-
-const styles = StyleSheet.create({
-
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.secondary,
+  },
+  containerProductsByCategory: {
+    marginBottom: 10
+  }
 })

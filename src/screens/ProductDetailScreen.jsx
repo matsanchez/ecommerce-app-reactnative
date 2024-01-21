@@ -1,101 +1,61 @@
+import { ActivityIndicator, ScrollView, StyleSheet, useWindowDimensions } from 'react-native'
 import { useEffect, useState } from 'react'
-import { ActivityIndicator, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { GLOBALcolors } from '../global/colors.js'
+import { colors } from '../global/colors'
+import ProductDetail from '../components/ProductDetail/ProductDetail'
 import { useSelector } from 'react-redux'
 
 
-const ProductDetailScreen = () => {
-
-  const [productSelected, setProductSelected] = useState({})
-  console.log(productSelected)
-
-  const product = useSelector(state => state.shopReducer.productSelected)
+import { useDispatch } from 'react-redux'
+import { addItem } from '../features/cartSlice'
 
 
-  useEffect(()=>{
-    setProductSelected(product)
-  }, [product])
+
+
+const ProductDetailScreen = ({ route }) => {
+
+  const dispatch = useDispatch()
+
+  const onAddToCart = () => {
+    dispatch(addItem({ ...productSelected, quantity: 1 }))
+  }
+
+  const [isLoading, setIsLoading] = useState(true)
+  const [isPortrait, setIsPortrait] = useState(true)
+  const { height, width } = useWindowDimensions()
+
+  const productId = route.params
+
+  const productSelected = useSelector(state => state.shopReducer.productSelected)
+
+  useEffect(() => {
+    height < width ? setIsPortrait(false) : setIsPortrait(true)
+  }, [height])
+
+  useEffect(() => {
+    setIsLoading(false)
+  }, [productId])
 
 
   return (
     <>
-      {
-        !product
-        ?
-        <ActivityIndicator />
-        :
-        <>
-          <ScrollView >
-            <Image
-              style={styles.imageProduct}
-              resizeMode='cover'
-              source={{uri: productSelected.thumbnail }}
-            />
-            <View style={styles.detailContainer}>
-              <Text style={styles.title}>{productSelected.title}</Text>
-              <Text style={styles.description}>{productSelected.description}</Text>
-              <Text style={styles.price}>$ {productSelected.price}</Text>
-              <TouchableOpacity onPress={() => null}>
-                <Text style={styles.buyText}>Comprar</Text>
-              </TouchableOpacity>
-            </View>
-          </ScrollView>
-        </>
-      }
 
+      <ScrollView style={style.containerProductDetail}>
+        {isLoading ?
+          <ActivityIndicator style={{ flex: 1, backgroundColor: colors.darkBlue }} animating={true} hidesWhenStopped={true} size='large' color={colors.paleGoldenRod} />
+          :
+          <ProductDetail productSelected={productSelected} isPortrait={isPortrait} onAddToCart={onAddToCart} />
+
+        }
+      </ScrollView>
     </>
   )
 }
 
-
-
 export default ProductDetailScreen
 
+const style = StyleSheet.create({
+  containerProductDetail: {
+    backgroundColor: colors.secondary,
 
-const styles = StyleSheet.create({
-  imageProduct: {
-    minWidth: 300,
-    width: '100%',
-    height: 400,
-
-  },
-  imageProductLandscape: {
-    width: 200,
-    height: 200,
-  },
-  detailContainer: {
-    alignItems: 'center',
-  },
-  title: {
-    fontFamily: 'WorkSans-Bold',
-    fontSize: 32,
-  },
-  description: {
-    fontFamily: 'WorkSans-Regular',
-    fontSize: 20,
-  },
-  price: {
-    fontFamily: 'WorkSans-Bold',
-    fontSize: 32,
-    color: GLOBALcolors.secondary
-  },
-  buyButton: {
-    marginTop: 10,
-    width: 200,
-    padding: 10,
-    alignItems: 'center',
-    backgroundColor: 'green',
-    borderRadius: 10,
-  },
-  buyText: {
-    color: '#000'
-  },
-  buyAlt: {
-    marginTop: 10,
-    width: 200,
-    padding: 10,
-    alignItems: 'center',
-    backgroundColor: GLOBALcolors.primary,
-    borderRadius: 10,
   }
 })

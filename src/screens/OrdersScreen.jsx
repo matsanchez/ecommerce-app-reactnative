@@ -1,25 +1,25 @@
-import { FlatList, StyleSheet } from 'react-native'
-import orderData from '../data/orders-data.json'
-import OrderItem from '../components/OrderItem'
+import { FlatList } from 'react-native'
+import OrderItem from '../components/OrderItem/OrderItem'
+import orders_data from '../data/orders_data.json'
 
 const OrdersScreen = () => {
-  
+
   const renderOrderItem = ({ item }) => {
-    const total = item.items.reduce((acc, item) => (
-      acc += item.price * item.quantity
+    const total = item.items.reduce((acc, curr) => (
+      acc + curr.price * curr.quantity
     ), 0)
-    return (
-      <OrderItem order={item} total={total} />
-    )
+    return <OrderItem order={item} total={total} />
   }
-  
+
+
   return (
     <FlatList
-      data={orderData}
+      data={orders_data}
       renderItem={renderOrderItem}
-      key={item => item.id}
+      keyExtractor={(item) => item.id}
     />
   )
 }
+
 export default OrdersScreen
-const styles = StyleSheet.create({})
+

@@ -1,4 +1,4 @@
-# Desafio 5
+# Desafio 6
 
 Avanzando en app e-commerce.
 > [!NOTE]
@@ -13,10 +13,14 @@ Avanzando en app e-commerce.
 
 > [!NOTE]
 > ~~Se modifico la navegacion REALIZADA EN EL ( 1 ), y se agrego Navigatior para las rutas.~~
-> Se modifico la navegacion con Navigator, se agrego un TabNavigator con un menu de Ver categorias, Carrito de Compras y Ordenes creadas.
+> Tambien se agrego un TabNavigator con un menu de Ver categorias, Carrito de Compras y Ordenes creadas.
 
 > [!NOTE]
 > Se aplico Redux
 
 > [!NOTE]
+> Se aplico Authentication, Location.
+
+> [!NOTE]
 > Eso es todo por el momento.... Clase a clase iremos mejorando lo funcional y obviamente lo estetico
+
