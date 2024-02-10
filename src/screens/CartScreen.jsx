@@ -1,13 +1,12 @@
 import CartItem from '../components/CartItem/CartItem'
-
 import { TouchableOpacity } from 'react-native'
 import { StyleSheet, Text, View, FlatList } from 'react-native'
 import { colors } from '../global/colors'
 import { useSelector } from 'react-redux'
 import { usePostOrderMutation } from '../services/shopService'
-
 import { useDispatch } from 'react-redux'
 import { removeItem } from '../features/cartSlice'
+
 
 const CartScreen = ({ navigation }) => {
 

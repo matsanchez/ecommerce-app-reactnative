@@ -1,26 +1,86 @@
-# Desafio 6
+# Tienda Eccomerce - App Mobile
 
-Avanzando en app e-commerce.
-> [!NOTE]
-> ~~Se implemento un listado de productos random generados por IA.~~
-> Se modifico el listado de productos con uno actualizado y con imagenes que coincidan.
+Visualización y venta de productos de primera calidad de manera rápida y sencilla.
 
-> [!NOTE]
-> ( 1 )Se agrego para que navegue desde las categorias hasta los productos dentro de cada una de ellas
+## ¿Que nos ofrece nuestra aplicación?
 
-> [!NOTE]
-> Incluye un buscador entre productos, y se puede retornar al inicio de las categorias...
+Este proyecto, permite simular una app eccomerce la cual podes seleccionar productos de distinta indole para luego agregar todo a un carrito y poder finalizar la compra.
+
+## ¡Comencemos!
+
 
 > [!NOTE]
-> ~~Se modifico la navegacion REALIZADA EN EL ( 1 ), y se agrego Navigatior para las rutas.~~
-> Tambien se agrego un TabNavigator con un menu de Ver categorias, Carrito de Compras y Ordenes creadas.
+> ## Herramientas y detalles importantes
+> * [expo-go](https://docs.expo.dev/get-started/installation/)
+> * [nodejs](https://nodejs.org/en/download/)
+> * [AndroidStudio-y-AVD(Android-Virtual-Device)](https://docs.google.com/document/d/1ZAbj39pkRmFzL2KmW9jc9SuweyU_qDYdW9FxCKCFR5E/edit)
+> * [Troubleshooting](https://docs.google.com/document/d/1CQeclAW0M2IGJqZOvMwRQtobAyAci529AQ6K1LzbH98/edit)
+> * [Creación-de-AVD](https://developer.android.com/studio/run/managing-avds)
+
+## Dependencias Utilizadas
+
+* expo/vector-icons (Utilización de íconos)
+* react-navigation (Navegación por las diferentes pantallas/screens)
+* reduxjs/toolkit (Simplificación de configuración en aplicación de React/React Native)
+* react-native-swiper (Efecto de transición de imágenes)
+* react-redux (Controlar los estados de la aplicación de manera más veloz y eficaz)
+* expo-image-picker (Librería que permite la interacción de la cámara del dispositivo)
+* expo-location (Librería que permite la interacción con la locación del dispositivo)
+* geolib (Librería para calcular la distancia entre dos puntos con la latitud y longitud)
+* expo-sqlite (Persistencia de datos de forma local)
+
+
+## Instalación
+
+> [!TIP]
+> Repositorio:
+> ```
+> https://github.com/matsanchez/ecommerce-app-reactnative
+> ```
+> Copiar y pegar en una terminal:
+> ```
+> https://github.com/matsanchez/ecommerce-app-reactnative.git
+> ```
+
+> [!WARNING]
+> #### Deberan de crear un .env como figura en el archivo de ejemplo .env.example con sus apikeys para que funcione correctamente
+>```
+> EXPO_PUBLIC_BASE_URL: 
+> EXPO_PUBLIC_BASE_AUTH_URL:
+> EXPO_PUBLIC_API_KEY:
+> EXPO_PUBLIC_MAPS_API_KEY:
+>```
+
+
+### Instalar las dependencias requeridas
+```
+$ npm install
+```
+
+### Ejecutar la aplicación
+```
+$ npx expo start
+```
+
+> [!TIP]
+> #### Usuario de prueba:
+>  - Username: test@test.com
+>  - Password: test123
+
+> [!IMPORTANT]
+> #### INSTALADOR APK:
+> * Dentro del repositorio se encuentra una carpeta llamada apk, y dentro un archivo ecommerce.apk el cual pueden emularlo en su celular. Por el momento compatible solo con Android
+
+
+## Autor
+
+El proyecto fue realizado por Matias Sanchez
 
 > [!NOTE]
-> Se aplico Redux
-
-> [!NOTE]
-> Se aplico Authentication, Location.
-
-> [!NOTE]
-> Eso es todo por el momento.... Clase a clase iremos mejorando lo funcional y obviamente lo estetico
+> #### ACTUALIZACIONES PENDIENTES:
+> Se encuentra en desarrollo:
+> * Metodo de Pago
+> * Control de Stock
+> * Seguimiento de envio
+> * Favoritos
 

@@ -8,6 +8,7 @@ import { colors } from '../global/colors'
 import { useSelector } from 'react-redux'
 import { useGetProductsByCategoryQuery } from '../services/shopService'
 
+
 const ProductsByCategoryScreen = ({ navigation }) => {
 
   const [productsByCategory, setProductsByCategory] = useState([])

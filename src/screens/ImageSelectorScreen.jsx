@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setProfilePicture } from '../features/authSlice';
 import { usePutProfilePictureMutation } from '../services/shopService';
 
+
 const ImageSelectorScreen = ({ navigation }) => {
   const [image, setImage] = useState('')
 

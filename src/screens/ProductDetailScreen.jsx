@@ -3,12 +3,8 @@ import { useEffect, useState } from 'react'
 import { colors } from '../global/colors'
 import ProductDetail from '../components/ProductDetail/ProductDetail'
 import { useSelector } from 'react-redux'
-
-
 import { useDispatch } from 'react-redux'
 import { addItem } from '../features/cartSlice'
-
-
 
 
 const ProductDetailScreen = ({ route }) => {
@@ -56,6 +52,5 @@ export default ProductDetailScreen
 const style = StyleSheet.create({
   containerProductDetail: {
     backgroundColor: colors.secondary,
-
   }
 })

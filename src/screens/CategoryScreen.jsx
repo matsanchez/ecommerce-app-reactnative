@@ -1,7 +1,7 @@
-import { FlatList, StyleSheet } from 'react-native'
+import { FlatList } from 'react-native'
 import { useSelector } from 'react-redux'
-
 import CategoryItem from '../components/CategoryItem'
+
 
 const CategoryScreen = ({ navigation }) => {
 
@@ -21,6 +21,3 @@ const CategoryScreen = ({ navigation }) => {
 }
 
 export default CategoryScreen
-const styles = StyleSheet.create({
-
-})

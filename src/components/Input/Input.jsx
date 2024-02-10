@@ -2,6 +2,7 @@ import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { useState } from 'react';
 import { colors } from '../../global/colors';
 
+
 const Input = ({ label, onChange, error = '', isSecureEntry = false }) => {
   const [input, setInput] = useState('');
 

@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { colors } from '../../global/colors'
 import { AntDesign, EvilIcons } from '@expo/vector-icons';
 
+
 const Search = ({ onSearchHandlerEvent }) => {
   const [searchInput, setSearchInput] = useState('')
   const [error, setError] = useState('')

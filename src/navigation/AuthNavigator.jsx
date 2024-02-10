@@ -3,6 +3,7 @@ import Header from '../components/Header/Header'
 import SignupScreen from '../screens/SignupScreen'
 import LoginScreen from '../screens/LoginScreen'
 
+
 const Stack = createNativeStackNavigator()
 
 const AuthNavigator = () => {

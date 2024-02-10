@@ -4,8 +4,10 @@ import TabNavigator from './TabNavigator';
 import AuthNavigator from './AuthNavigator';
 import { useGetProfilePictureQuery } from '../services/shopService';
 import { useEffect } from 'react';
-import { setProfilePicture, setUserLocation } from '../features/authSlice';
+import { setProfilePicture, setUserLocation, setUser } from '../features/authSlice';
 import { useGetUserLocationQuery } from '../services/shopService';
+import { fetchSession } from '../db';
+
 
 const MainNavigator = () => {
   const user = useSelector(state => state.authReducer.user)
@@ -24,6 +26,20 @@ const MainNavigator = () => {
       dispatch(setUserLocation(locationData))
     }
   }, [data, locationData, isLoading, locationIsLoading])
+
+  useEffect(()=>{
+    (async ()=>{
+        try{
+            const session = await fetchSession()
+            if(session?.rows.length){
+                const user = session.rows._array[0]
+                dispatch(setUser(user))
+            }
+        }catch(error){
+            console.log("Error al obtener datos del usuario local: ", error.message)
+        }
+    })()
+},[])
 
   return (
     <NavigationContainer>

@@ -4,6 +4,7 @@ import { StyleSheet, Text, View, Image } from 'react-native'
 import Card from '../Card/Card'
 import { colors } from '../../global/colors'
 
+
 const CartItem = ({ item, onRemoveItem }) => {
 
   const handleRemoveItem = () => {

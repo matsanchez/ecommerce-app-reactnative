@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { usePutUserLocationMutation } from '../../services/shopService'
 import { getDistance } from 'geolib'
 
+
 const MAPS_API_KEY = process.env.EXPO_PUBLIC_MAPS_API_KEY;
 
 const LocationSelector = () => {
@@ -23,14 +24,12 @@ const LocationSelector = () => {
 
   useEffect(() => {
     (async () => {
-      //console.log(location)
       let { status } = await Location.requestForegroundPermissionsAsync()
       if (status !== 'granted') {
         setError('Permission to access location was denied')
         return
       }
       let location = await Location.getCurrentPositionAsync()
-      console.log(location)
       setLocation({ latitude: location.coords.latitude, longitude: location.coords.longitude })
     })()
   }, [])
@@ -46,7 +45,7 @@ const LocationSelector = () => {
             const formattedAddress = data.results[0].formatted_address
             const distance = getDistance(
               { latitude: location.latitude, longitude: location.longitude },
-              { latitude: location.latitude, longitude: location.longitude + 0.0001 }
+              { latitude: location.latitude, longitude: location.longitude + 0.1 }
             )
             setDistance(distance)
             setAddress(formattedAddress)

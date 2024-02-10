@@ -3,6 +3,7 @@ import Swiper from 'react-native-swiper'
 import { colors } from '../../global/colors';
 import { useSelector } from 'react-redux';
 
+
 const width = Dimensions.get('window').width;
 
 const Carousel = () => {

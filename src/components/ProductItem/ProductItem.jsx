@@ -3,6 +3,7 @@ import { colors } from '../../global/colors'
 import { useDispatch } from 'react-redux'
 import { setProductIdSelected, setProductSelected } from '../../features/shopSlice'
 
+
 const ProductItem = ({ product, navigation }) => {
 
   const dispatch = useDispatch()
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     borderColor: colors.greyLabel,
-    backgroundColor: colors.shadow,
+    backgroundColor: colors.input,
     borderRadius: 10,
     overflow: 'hidden',
   },

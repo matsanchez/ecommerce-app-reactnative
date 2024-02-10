@@ -1,82 +1,75 @@
-import { Image, Pressable, StyleSheet, Text, View } from 'react-native'
+import { Image, Pressable, StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import user_data from '../data/user_data.json'
 import { colors } from '../global/colors'
-import { LinearGradient } from 'expo-linear-gradient'
-import { FontAwesome } from '@expo/vector-icons';
-import { useSelector } from 'react-redux'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { useSelector, useDispatch } from 'react-redux'
+import { logout } from '../features/authSlice';
+import { deleteSession } from '../db';
 import LocationSelector from '../components/LocationSelector/LocationSelector'
 
 
 const ProfileScreen = ({ navigation }) => {
   const image = useSelector(state => state.authReducer.profilePicture)
   const location = useSelector(state => state.authReducer.location)
+  const localId = useSelector(state=>state.authReducer.localId)
+  const dispatch = useDispatch()
+  const onLogout = ()=>{
+      dispatch(logout())
+      deleteSession(localId)
+  }
 
   return (
-    <LinearGradient
-      colors={[colors.secondary, colors.primary,]}
-      style={styles.background}
-      end={{ x: 0.5, y: 0.5 }}
+    <>
+        <View style={styles.container}>
+            <View>
+                <Pressable onPress={()=>navigation.navigate("Select Image")}
+                    style={({ pressed }) => [
+                        {
+                            backgroundColor: pressed ? '#DCDCDC' : '#E8E8E8',
+                        },
+                        styles.imageContainer,
+                    ]}>
+                      <MaterialCommunityIcons name="account-edit" size={20}/>
+                    {
+                        image
+                            ?
+                            <Image
+                                source={{uri:image}}
+                                style={styles.profilePicture}
+                                resizeMode='contain'
+                            />
+                            :
+                            <Image
+                                source={require('../../assets/img/user.png')}
+                                style={styles.profilePicture}
+                                resizeMode='contain'
+                            />
 
-    >
-      <View style={styles.container}>
-
-        {
-          image ?
-            <View style={styles.profilePictureContainer} >
-              <Image
-                source={{ uri: image }}
-                style={styles.profilePicture}
-                resizeMode='contain'
-              />
-              <Pressable
-                onPress={() => navigation.navigate('Select Image')}
-                style={({ pressed }) => [{ backgroundColor: pressed ? colors.primary : 'transparent' }, styles.pressed, styles.button]}
-              >
-                <Text style={styles.btnChangePicture}>Change</Text>
-              </Pressable>
+                    }
+                </Pressable>
             </View>
-            :
-            <View style={styles.profilePictureContainer} >
-              <View
-                style={styles.profilePicture}
-              >
-                <FontAwesome name="user-plus" style={styles.profileIcon}
-                  resizeMode='contain' />
-              </View>
-              <Text style={styles.btnChangePicture}>Take a Picture</Text>
+            
+            <View style={styles.userDataContainer}>
+                <Text style={styles.userTitle}>{user_data.name}</Text>
+                <Text style={styles.userData}>{user_data.role}</Text>
+                <Text style={styles.userData}>Nivel: {user_data.level}</Text>
+                <Text style={styles.userData}>Dirección: {user_data.address}</Text>
+                <Text style={styles.userData}>{user_data.city}</Text>
             </View>
-
-
-        }
-
-        <View style={styles.userDataContainer}>
-          <Text style={styles.userTitle}>Name: {user_data.name}</Text>
-          <Text style={styles.userData}>Rol: {user_data.role}</Text>
-          <Text style={styles.userData}>Level: {user_data.level}</Text>
-          <Text style={styles.userData}>Address: {user_data.address}</Text>
-          <Text style={styles.userData}>City: {user_data.city}</Text>
         </View>
-      </View>
-      <View style={styles.addresPreviewContainer} >
-        <Text style={styles.addressTitle}>
-          Last Saved Location
-        </Text>
+        <TouchableOpacity onPress={onLogout}>
+                <Text style={styles.btnChangePicture}><MaterialCommunityIcons name="logout" size={15}/> Logout</Text>
+        </TouchableOpacity>
         {
-          location.address ?
-            <Text style={styles.addressDescription}
-            >
-              {location.address}
-            </Text>
-            :
-            <Text style={styles.addressDescription}
-            >
-              No Saved Location!
-            </Text>
+            location.address
+            &&
+            <View style={styles.addressContainer}>
+                <Text style={styles.addressTitle}>Última ubicación guardada: </Text>
+                <Text style={styles.addressDescription}>{location.address}</Text>     
+            </View>
         }
-      </View>
-
-      <LocationSelector style={styles.locationSelectorComponent} />
-    </LinearGradient >
+        <LocationSelector />
+        </>
   )
 }
 
@@ -94,9 +87,8 @@ const styles = StyleSheet.create({
   profilePicture: {
     width: 130,
     height: 130,
-    borderRadius: 20,
+    borderRadius: 60,
     borderWidth: 1,
-    borderColor: colors.text_color_secondary,
     marginBottom: 10,
   },
   btnChangePicture: {
@@ -121,7 +113,7 @@ const styles = StyleSheet.create({
   userData: {
     fontWeight: 'normal',
     fontSize: 16,
-    color: colors.input,
+    color: colors.text_color,
   },
   locationSelectorComponent: {
     width: '100%',

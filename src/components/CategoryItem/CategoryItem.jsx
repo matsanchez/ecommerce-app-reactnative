@@ -4,6 +4,7 @@ import { colors } from '../../global/colors'
 import { useDispatch } from 'react-redux'
 import { setCategorySelected } from '../../features/shopSlice'
 
+
 const CategoryItem = ({ category, navigation }) => {
   const dispatch = useDispatch()
 

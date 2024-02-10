@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { setUser } from '../features/authSlice';
 import { logInSchema } from '../validations/logInSchema';
 import { LinearGradient } from 'expo-linear-gradient';
+import { insertSession } from '../db'
 
 
 const LoginScreen = ({ navigation }) => {
@@ -24,37 +25,29 @@ const LoginScreen = ({ navigation }) => {
 
   const onSubmit = async () => {
     try {
-      // Limpiar errores al intentar iniciar sesión
       setLoginError('');
       setFormErrors({
         email: '',
         password: '',
       });
 
-      // Validar los datos con el esquema de inicio de sesión
-      await logInSchema.validate({ email, password }, { abortEarly: false }); //? Comentar para hardcodear user y pass
-
-      // Iniciar sesión
+      await logInSchema.validate({ email, password }, { abortEarly: false });
       setIsLoading(true);
-      const response = await triggerLogIn({ email, password }); //? Comentar para hardcodear user y pass
-      // const response = await triggerLogIn({ email: 'test@coder.com', password: '123456' }); //? Descomentar para hardcodear user y pass
-
-      // Verificar si el inicio de sesión fue sin éxito
+      const response = await triggerLogIn({ email, password });
+      
+      
       if (response.error) {
         setLoginError('Unregistered user or Incorrect password');
       } else {
-        // Limpiar el estado de error si el inicio de sesión fue exitoso
         setLoginError('');
         dispatch(setUser(response.data));
       }
     } catch (error) {
-      // Manejar errores de validación Yup
       if (error.name === 'ValidationError') {
         const validationErrors = {};
         error.inner.forEach((err) => {
           validationErrors[err.path] = err.message;
         });
-        // Asignar mensajes de error a los campos correspondientes
         if (validationErrors.email) {
           setFormErrors((prevErrors) => ({ ...prevErrors, email: validationErrors.email }));
         } else if (validationErrors.password) {
@@ -68,11 +61,18 @@ const LoginScreen = ({ navigation }) => {
     }
   };
 
-  useEffect(() => {
-    if (result.data) {
-      dispatch(setUser(result.data));
+  useEffect(()=>{
+    if(result.data){
+        dispatch(setUser(result.data))
+        insertSession({
+          localId: result.data.localId,
+          email: result.data.email,
+          token: result.data.idToken
+      })
+      .then(result=>console.log("Éxito al guardar sesión: ", result))
+      .catch(error=>console.log("Error al guardar sesión: ", error.message))
     }
-  }, [result]);
+}, [result])
 
   return (
     <LinearGradient
@@ -82,7 +82,7 @@ const LoginScreen = ({ navigation }) => {
 
     >
       {isLoading ? <ActivityIndicator style={{ flex: 1 }} size="large" color={colors.paleGoldenRod} /> :
-
+  
         <KeyboardAvoidingView style={styles.container} behavior='height'>
           <Input
             label='Email:'

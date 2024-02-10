@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native'
 import { colors } from '../../global/colors'
-import { Ionicons, AntDesign } from '@expo/vector-icons';
-import Constants from 'expo-constants';
+import { Ionicons } from '@expo/vector-icons';
+
 
 const Header = ({ title, navigation }) => {
 
@@ -10,17 +10,11 @@ const Header = ({ title, navigation }) => {
       <TouchableOpacity onPress={navigation.goBack} style={styles.headerIcon}>
         {
           navigation.canGoBack() &&
-          <Ionicons name="arrow-back-circle-outline" size={30} color={colors.paleGoldenRod} />
+          <Ionicons name="arrow-back-circle-outline" size={30} color={colors.text_color_secondary} />
         }
       </TouchableOpacity>
 
       <Text style={styles.headerText}>{title}</Text>
-      <TouchableOpacity onPress={navigation.popToTop} style={styles.headerIcon}>
-        {
-          navigation.canGoBack() &&
-          <AntDesign name="home" size={24} color={colors.paleGoldenRod} />
-        }
-      </TouchableOpacity>
     </View >
   )
 }
@@ -34,7 +28,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: colors.secondary,
-    paddingBottom: 20,
+    paddingBottom: 10,
+    paddingTop: 10,
     paddingHorizontal: 20,
   },
   headerText: {

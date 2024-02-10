@@ -1,5 +1,6 @@
 import { object, string } from 'yup';
 
+
 export const logInSchema = object().shape({
   email: string()
     .required('Please, enter your email')
