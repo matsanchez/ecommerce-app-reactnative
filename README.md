@@ -1,10 +1,10 @@
-# Tienda Eccomerce - App Mobile
+# Tienda Ecommerce - App Mobile
 
 Visualización y venta de productos de primera calidad de manera rápida y sencilla.
 
-## ¿Que nos ofrece nuestra aplicación?
+## ¿De que trata este proyecto?
 
-Este proyecto, permite simular una app eccomerce la cual podes seleccionar productos de distinta indole para luego agregar todo a un carrito y poder finalizar la compra.
+Este proyecto, es una entrega final para el curso de Desarrollo de Aplicaciones de Coderhouse-Comision 56680,la cuall permite simular una app ecommerce la cual podes seleccionar productos de distinta indole para luego agregar todo a un carrito y poder finalizar la compra.
 
 ## ¡Comencemos!
 
@@ -39,7 +39,7 @@ Este proyecto, permite simular una app eccomerce la cual podes seleccionar produ
 > ```
 > Copiar y pegar en una terminal:
 > ```
-> https://github.com/matsanchez/ecommerce-app-reactnative.git
+> $ git clone https://github.com/matsanchez/ecommerce-app-reactnative.git
 > ```
 
 > [!WARNING]
